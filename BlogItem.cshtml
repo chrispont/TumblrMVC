@@ -1,0 +1,32 @@
+﻿@model boardwalk.tumblr.Data.Post
+
+@{
+    var descriptionString = ((Model.body ?? Model.caption) ?? Model.description);
+    if (descriptionString.Length > 50)
+    {
+        descriptionString = descriptionString.Substring(0, 50) + "...";
+    }
+
+    var imageString = string.Format("assets/images/dribbble/{0}.jpg", new Random().Next(1, 10));
+    if (Model.photos != null && Model.photos.Count > 0)
+    {
+        imageString = Model.photos[0].alt_sizes[0].url;
+    }
+}
+<div class="span3">
+    <div class="white-content clearfix">
+        <div class="img-mask hover-mask">
+            <img src="@imageString" alt="Photo-Work-1"><div class="flip-container">
+                <div class="flipper">
+                    <div class="back">
+                        <div class="flip-b"><a href="#"><span class="icon-back"><i class="icon-plus-sign"></i></span></a></div>
+                    </div>
+                </div>
+            </div>
+            <span class="hover-fade"><i class="icon-plus-sign"></i></span></div>
+        <a href="#">
+            <h5>@Model.title</h5>
+        </a>
+        <p>@descriptionString</p>
+        <span><i class="icon-calendar pull-left"></i>@DateTime.Parse(Model.date).ToString("MMM dd, yyyy")</span><a href="@Model.post_url" class="btn-twitter pull-right">More</a></div>
+</div>
